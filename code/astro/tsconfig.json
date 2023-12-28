@@ -1,12 +1,25 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    // ... your other compiler options
-    "baseUrl": ".",
+    "baseUrl": "/Users/bibbychung/app/practice-todomvc-signals/code/astro",
     "paths": {
-      "~/lib/*": ["src/lib/*"],
-      "~/layouts/*": ["src/layouts/*"]
+      "~/lib/*": [
+        "src/lib/*"
+      ],
+      "~/layouts/*": [
+        "src/layouts/*"
+      ]
     },
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
   },
-
+  "include": [
+    "./*.cjs",
+    "./*.mjs",
+    "./src/**/*.d.ts",
+    "./src/**/*.svelte",
+    "./src/**/*.astro",
+    "./src/**/*.tsx",
+    "./src/**/*.ts"
+  ]
 }

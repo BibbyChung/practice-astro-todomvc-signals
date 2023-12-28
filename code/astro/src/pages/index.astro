@@ -1,11 +1,14 @@
 ---
 import Layout from "~/layouts/Layout.astro";
-import Card from "~/lib/components/tmp/card01.astro";
+import HelloWorldSvelte from "~/lib/components/hello-world.svelte";
+import { HelloWorldReact } from "~/lib/components/hello-world";
 ---
 
 <Layout title="Welcome to Astro.">
   <main>
-    <h1>hello world</h1>
+    <HelloWorldSvelte />
+    <hr />
+    <HelloWorldReact />
   </main>
 </Layout>
 
