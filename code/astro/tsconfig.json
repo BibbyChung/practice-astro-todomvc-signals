@@ -16,6 +16,7 @@
   "include": [
     "./*.cjs",
     "./*.mjs",
+    "./*.ts",
     "./src/**/*.d.ts",
     "./src/**/*.svelte",
     "./src/**/*.astro",

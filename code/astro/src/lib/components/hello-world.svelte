@@ -2,7 +2,7 @@
   const lang = "svelte";
 </script>
 
-<h1>hello world - {lang}</h1>
+<h1 class="bg-pink-400 text-black">hello world - {lang}</h1>
 
 <!-- markup (zero or more items) goes here -->
 

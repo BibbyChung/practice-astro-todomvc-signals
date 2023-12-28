@@ -22,9 +22,11 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
+    "@iconify-json/ic": "^1.1.17",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "@typescript-eslint/parser": "^6.4.0",
     "@unocss/eslint-config": "^0.55.6",
+    "@unocss/reset": "^0.58.2",
     "eslint": "^8.29.0",
     "eslint-config-standard-with-typescript": "^39.0.0",
     "eslint-plugin-astro": "^0.31.0",
@@ -32,6 +34,7 @@
     "eslint-plugin-n": "^16.0.0 ",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-svelte": "^2.33.0"
+    "eslint-plugin-svelte": "^2.33.0",
+    "unocss": "^0.58.2"
   }
 }
