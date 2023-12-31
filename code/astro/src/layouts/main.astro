@@ -1,5 +1,5 @@
 ---
-import Layout01 from "~/layouts/layout01.astro";
+import Layout from "~/layouts/layout.astro";
 import Menu from "~/lib/components/menu.svelte";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 const props = Astro.props;
 ---
 
-<Layout01 {...props}>
+<Layout {...props}>
   <main class="p-8">
     <div class="w-16">
       <Menu client:load />
@@ -17,4 +17,4 @@ const props = Astro.props;
       <slot />
     </div>
   </main>
-</Layout01>
+</Layout>
