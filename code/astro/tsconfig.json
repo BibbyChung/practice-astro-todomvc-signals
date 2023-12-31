@@ -14,13 +14,15 @@
     "jsxImportSource": "react"
   },
   "include": [
-    "./*.cjs",
-    "./*.mjs",
-    "./*.ts",
-    "./src/**/*.d.ts",
-    "./src/**/*.svelte",
-    "./src/**/*.astro",
-    "./src/**/*.tsx",
-    "./src/**/*.ts"
+    ".eslintrc.cjs",
+    "*.cjs",
+    "*.mjs",
+    "*.ts",
+    "*.js",
+    "src/**/*.d.ts",
+    "src/**/*.svelte",
+    "src/**/*.astro",
+    "src/**/*.tsx",
+    "src/**/*.ts"
   ]
 }

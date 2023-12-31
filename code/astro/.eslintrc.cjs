@@ -62,6 +62,5 @@ module.exports = {
     "@typescript-eslint/no-confusing-void-expression": 0,
     "@typescript-eslint/no-misused-promises": 0,
     "@typescript-eslint/semi": ['warn', "always"]
-  },
-  ignorePatterns: [".eslintrc.cjs"]
+  }
 };

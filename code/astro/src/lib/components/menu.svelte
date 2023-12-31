@@ -5,12 +5,12 @@
   export const menus = [
     {
       title: "Home",
-      path: "/",
+      path: "/"
     },
     {
       title: "React",
-      path: "/todos-react/",
-    },
+      path: "/todos-react/"
+    }
     // {
     //   title: "React",
     //   path: "/react/",
