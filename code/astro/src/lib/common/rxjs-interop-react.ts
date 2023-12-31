@@ -67,10 +67,21 @@ export function toSignal<T, U = undefined>(
 ): Signal<T | U | null | undefined> {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useMemoCleanup(() => {
-    console.log('init useToSignal');
     const state: Signal<State<T | U>> = signal<State<T | U>>({ kind: StateKind.Value, value: options?.initialValue as U });
     const sub = source.subscribe({
-      next: value => { state.value = { kind: StateKind.Value, value }; },
+      next: value => {
+        let v: unknown;
+        try {
+          if (typeof value === 'object' && value !== null) {
+            v = Array.isArray(value) ? [...value] : { ...value };
+          } else {
+            v = value;
+          }
+        } catch (err) {
+          v = value;
+        }
+        state.value = { kind: StateKind.Value, value: v as any as T };
+      },
       error: error => {
         if (options?.rejectErrors) {
           throw error;
@@ -81,7 +92,6 @@ export function toSignal<T, U = undefined>(
 
     const disponseFunc = () => {
       sub.unsubscribe();
-      console.log('toSignal destroy...');
     };
 
     return [
@@ -105,7 +115,6 @@ export function toObservable<T>(
 ): Observable<T> {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useMemoCleanup(() => {
-    console.log('init useToObservable');
     const subject = new ReplaySubject<T>(1);
 
     const dispose = effect(() => {
@@ -122,7 +131,6 @@ export function toObservable<T>(
     const disposeFunc = () => {
       dispose();
       subject.complete();
-      console.log('toObservable destroy...');
     };
 
     return [
