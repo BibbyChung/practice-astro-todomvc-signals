@@ -1,15 +1,12 @@
 ---
-import Layout from "~/layouts/Layout.astro";
 import HelloWorldSvelte from "~/lib/components/hello-world.svelte";
-import { HelloWorldReact } from "~/lib/components/hello-world";
+import Main01 from "~/layouts/main01.astro";
 ---
 
-<Layout title="Welcome to Astro.">
-  <main>
-    <HelloWorldSvelte />
-    <hr />
-    <HelloWorldReact client:load />
-  </main>
-</Layout>
+<Main01 title="home">
+  <HelloWorldSvelte />
+</Main01>
 
 <style></style>
+
+<!-- title="Welcome to Astro." -->

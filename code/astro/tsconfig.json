@@ -1,7 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "baseUrl": "/Users/bibbychung/app/practice-todomvc-signals/code/astro",
+    "baseUrl": ".",
     "paths": {
       "~/lib/*": [
         "src/lib/*"

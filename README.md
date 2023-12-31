@@ -1,10 +1,10 @@
 ## steps
 
 - infra
- - init astro
- - init eslint
- - init unocss
- - routers
+ - init astro (done)
+ - init eslint (done)
+ - init unocss (done)
+ - routers (done)
 - todomvc
   - css
   - svelte

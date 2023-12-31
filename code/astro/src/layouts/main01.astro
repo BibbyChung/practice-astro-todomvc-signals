@@ -1,0 +1,20 @@
+---
+import Layout01 from "~/layouts/layout01.astro";
+import Menu from "~/lib/components/menu.svelte";
+
+interface Props {
+  title: string;
+}
+const props = Astro.props;
+---
+
+<Layout01 {...props}>
+  <main class="p-8">
+    <div class="w-16">
+      <Menu client:load />
+    </div>
+    <div class="mt-2 w-full">
+      <slot />
+    </div>
+  </main>
+</Layout01>
