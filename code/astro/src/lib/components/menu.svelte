@@ -8,11 +8,11 @@
       path: "/"
     },
     {
-      title: "React",
+      title: "Todos-React",
       path: "/todos-react/"
     },
     {
-      title: "todos-svelte",
+      title: "Todos-svelte",
       path: "/todos-svelte/"
     }
     // {
