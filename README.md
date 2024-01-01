@@ -5,8 +5,8 @@
  - init eslint (done)
  - init unocss (done)
  - routers (done)
-- todomvc
-  - css
-  - svelte
-  - react
+- todomvc (done)
+  - css (done)
+  - svelte (done)
+  - react (done)
  
