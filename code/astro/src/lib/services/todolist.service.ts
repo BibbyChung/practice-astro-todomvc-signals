@@ -2,7 +2,7 @@ import { getUUID } from "@b/lib";
 import { combineLatest, map, of, shareReplay, switchMap, take, tap } from "rxjs";
 import { getBehaviorSubject } from "../common/util";
 
-type todosFilterType = "all" | "active" | "completed";
+export type todosFilterType = "all" | "active" | "completed";
 
 export type todoType = {
   id: string;

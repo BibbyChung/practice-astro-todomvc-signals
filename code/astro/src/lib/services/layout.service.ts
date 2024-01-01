@@ -19,7 +19,7 @@ export const setWindow = (w: windowType) => { window$.next(w); };
 export const getWindow = () =>
   window$.pipe(
     filter((a) => !!a),
-    map((a) => a as windowType)
+    map((a) => a!)
   );
 
 // title
@@ -28,5 +28,5 @@ export const setTitle = (w: string) => { title$.next(w); };
 export const getTitle = () =>
   title$.pipe(
     filter((a) => !!a),
-    map((a) => a as string)
+    map((a) => a!)
   );

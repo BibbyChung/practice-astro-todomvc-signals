@@ -28,7 +28,7 @@ export default function Footer() {
 
   return (
     <footer className="footer">
-      <span className="todo-count">
+      <span>
         {uncompletedCountSig.value === 1
           ? "1 item left"
           : `${uncompletedCountSig.value} items left`}
@@ -42,9 +42,7 @@ export default function Footer() {
             }}
             href="#/"
             className={todoFilterSig.value === "all" ? "selected" : ""}
-          >
-            All
-          </a>
+          >All</a>
         </li>
         <li>
           <a
@@ -54,9 +52,7 @@ export default function Footer() {
             }}
             href="#/"
             className={todoFilterSig.value === "active" ? "selected" : ""}
-          >
-            Active
-          </a>
+          >Active</a>
         </li>
         <li>
           <a
@@ -66,12 +62,11 @@ export default function Footer() {
             }}
             href="#/"
             className={todoFilterSig.value === "completed" ? "selected" : ""}
-          >
-            Completed
-          </a>
+          >Completed</a>
         </li>
       </ul>
-      {isShowClearCompletedSig
+      <div>
+      {isShowClearCompletedSig.value
         ? (
           <button
             onClick={(e) => {
@@ -86,6 +81,7 @@ export default function Footer() {
         : (
             ""
           )}
+      </div>
     </footer>
   );
 }

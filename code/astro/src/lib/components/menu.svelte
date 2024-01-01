@@ -10,11 +10,11 @@
     {
       title: "React",
       path: "/todos-react/"
+    },
+    {
+      title: "todos-svelte",
+      path: "/todos-svelte/"
     }
-    // {
-    //   title: "React",
-    //   path: "/react/",
-    // },
     // {
     //   title: "SSR",
     //   path: "/ssr/",

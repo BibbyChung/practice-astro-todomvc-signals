@@ -248,10 +248,12 @@ const props = Astro.props;
     height: 50px;
     text-align: center;
     border-top: 1px solid #e6e6e6;
+    @apply flex items-center justify-between;
   }
 
   .footer:before {
     content: "";
+    @apply pointer-events-none;
     position: absolute;
     right: 0;
     bottom: 0;
@@ -266,28 +268,16 @@ const props = Astro.props;
       0 17px 2px -6px rgba(0, 0, 0, 0.2);
   }
 
-  .todo-count {
-    float: left;
-    text-align: left;
+  .footer > span {
+    @apply inline-block w-[100px];
   }
-
-  .todo-count strong {
-    font-weight: 300;
+  .footer > div {
+    @apply w-[160px];
   }
 
   .filters {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    position: absolute;
-    right: 0;
-    left: 0;
+    @apply flex gap-2;
   }
-
-  .filters li {
-    display: inline;
-  }
-
   .filters li a {
     color: inherit;
     margin: 3px;
@@ -340,10 +330,6 @@ const props = Astro.props;
     text-decoration: underline;
   }
 
-  /*
-	Hack to remove background from Mobile Safari.
-	Can't use it globally since it destroys checkboxes in Firefox
-*/
   @media screen and (-webkit-min-device-pixel-ratio: 0) {
     .toggle-all,
     .todo-list li .toggle {
