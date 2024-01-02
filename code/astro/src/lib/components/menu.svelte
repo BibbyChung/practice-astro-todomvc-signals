@@ -14,11 +14,11 @@
     {
       title: "Todos-svelte",
       path: "/todos-svelte/"
+    },
+    {
+      title: "Todos-angular",
+      path: "/todos-angular/"
     }
-    // {
-    //   title: "SSR",
-    //   path: "/ssr/",
-    // },
     // {
     //   title: "ENV",
     //   path: "/env/",

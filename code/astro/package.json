@@ -11,6 +11,17 @@
   },
   "dependencies": {
     "@b/lib": "link:@b/lib",
+    "@analogjs/astro-angular": "^0.2.29",
+    "@angular-devkit/build-angular": "^17.0.8",
+    "@angular/animations": "^17.0.8",
+    "@angular/common": "^17.0.8",
+    "@angular/compiler": "^17.0.8",
+    "@angular/compiler-cli": "^17.0.8",
+    "@angular/core": "^17.0.8",
+    "@angular/language-service": "^17.0.8",
+    "@angular/platform-browser": "^17.0.8",
+    "@angular/platform-browser-dynamic": "^17.0.8",
+    "@angular/platform-server": "^17.0.8",
     "@astrojs/check": "^0.3.4",
     "@astrojs/react": "^3.0.9",
     "@astrojs/svelte": "^5.0.3",
@@ -23,8 +34,10 @@
     "react-dom": "^18.2.0",
     "rxjs": "^7.8.1",
     "svelte": "^4.2.8",
-    "typescript": "^5.3.3",
-    "unocss": "^0.58.2"
+    "tslib": "^2.6.2",
+    "typescript": "5.2.2",
+    "unocss": "^0.58.2",
+    "zone.js": "^0.14.2"
   },
   "devDependencies": {
     "@iconify-json/ic": "^1.1.17",
