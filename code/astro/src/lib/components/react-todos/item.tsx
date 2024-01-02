@@ -10,7 +10,6 @@ export default function Item(params: todoType) {
   useEffect(() => {
     const destroySub = destroyBtn$
       .pipe(
-        tap(console.log),
         tap(() => delTodo(params.id))
       ).subscribe();
 
