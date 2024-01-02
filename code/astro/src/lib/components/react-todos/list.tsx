@@ -1,7 +1,7 @@
 import { useSignals } from "@preact/signals-react/runtime";
 import { useEffect, useRef } from "react";
-import { map, of, switchMap, take, tap } from "rxjs";
-import { toSignal } from "~/lib/common/rxjs-interop-react";
+import { filter, map, switchMap, take, tap } from "rxjs";
+import { toSignal, useSubject } from "~/lib/common/rxjs-interop-react";
 import { getTodos, setAllTodosCompleted } from "~/lib/services/todolist.service";
 import AddItem from "./addItem";
 import Footer from "./footer";
@@ -9,12 +9,17 @@ import Item from "./item";
 
 export default function TodoList() {
   useSignals();
-  const checkboxToggle = useRef<HTMLInputElement>(null);
+  const checkboxToggleRef = useRef<HTMLInputElement>(null);
+  const isReady$ = useSubject<boolean>();
+  const checkSelectAllBtn$ = useSubject<boolean>();
   const todosSig = toSignal(getTodos());
 
   useEffect(() => {
-    // check checkbox of toggle status
-    const toggleCheckboxSub = getTodos().pipe(
+    isReady$.next(true);
+
+    const toggleCheckboxSub = isReady$.pipe(
+      filter(a => a),
+      switchMap(() => getTodos()),
       map((todos) => {
         const total = todos.length;
         const selectedCount = todos.filter((a) => a.completed).length;
@@ -24,23 +29,22 @@ export default function TodoList() {
         return total === selectedCount;
       }),
       tap((isSelected) => {
-        if (checkboxToggle.current) {
-          checkboxToggle.current.checked = isSelected;
+        if (checkboxToggleRef.current) {
+          checkboxToggleRef.current.checked = isSelected;
         }
       })
     ).subscribe();
 
+    const checkSelectAllSub = checkSelectAllBtn$.pipe(
+      take(1),
+      switchMap(() => setAllTodosCompleted(checkboxToggleRef.current?.checked ?? false))
+    ).subscribe();
+
     return () => {
       toggleCheckboxSub.unsubscribe();
+      checkSelectAllSub.unsubscribe();
     };
   }, []);
-
-  const checkSelectAll = (isSelected: boolean) => {
-    of(true).pipe(
-      take(1),
-      switchMap(() => setAllTodosCompleted(isSelected))
-    ).subscribe();
-  };
 
   return (
     <section className="todoapp">
@@ -51,10 +55,10 @@ export default function TodoList() {
           className="toggle-all"
           type="checkbox"
           onChange={(e) => {
-            checkSelectAll(e.target.checked);
+            checkSelectAllBtn$.next(true);
             // e.preventDefault();
           }}
-          ref={checkboxToggle}
+          ref={checkboxToggleRef}
         />
         <label htmlFor="toggle-all">Mark all as complete</label>
         <ul className="todo-list">

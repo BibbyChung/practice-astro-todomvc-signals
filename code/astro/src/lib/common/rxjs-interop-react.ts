@@ -1,6 +1,7 @@
 import { computed, effect, signal, untracked, type Signal } from "@preact/signals-react";
 import { useMemo, useRef, type MutableRefObject } from "react";
 import { Observable, ReplaySubject, type Subscribable } from 'rxjs';
+import { getSubject } from "./util";
 
 type FunctionOrNullType = typeof Function | null;
 
@@ -106,7 +107,6 @@ export function toSignal<T, U = undefined>(
       }),
       disponseFunc as FunctionOrNullType
     ];
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }
 
@@ -137,6 +137,20 @@ export function toObservable<T>(
       subject.asObservable(),
       disposeFunc as FunctionOrNullType
     ];
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }
+
+export const useSubject = <T>() => {
+  return useMemoCleanup(() => {
+    const subject = getSubject<T>();
+
+    const disposeFunc = () => {
+      subject.complete();
+    };
+
+    return [
+      subject,
+      disposeFunc as FunctionOrNullType
+    ];
+  }, []);
+};

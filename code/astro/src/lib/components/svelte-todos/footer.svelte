@@ -45,8 +45,8 @@
 <footer class="footer">
   <span class="todo-count">
     {$uncompletedCount$ === 1
-      ? "1 item left"
-      : `${$uncompletedCount$} items left`}
+      ? "1 uncompleted item left"
+      : `${$uncompletedCount$} uncompleted items left`}
   </span>
   <ul class="filters">
     <li>
