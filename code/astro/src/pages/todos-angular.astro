@@ -1,8 +1,8 @@
 ---
 import Main from "~/layouts/main.astro";
-import { HelloWorldComponent } from "~/lib/components/angular-todos/hello-world/hello-world.component";
+import { TodosComponent } from "~/lib/components/angular-todos/app.component";
 ---
 
 <Main title="todos-angular">
-  <HelloWorldComponent client:load />
+  <TodosComponent client:load />
 </Main>
