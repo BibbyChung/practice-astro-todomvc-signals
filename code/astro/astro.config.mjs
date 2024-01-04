@@ -8,6 +8,9 @@ export default defineConfig({
   integrations: [
     svelte(),
     react(),
-    UnoCSS({ injectReset: true })
+    UnoCSS({
+      injectReset: true,
+      configFile: './uno.config.ts'
+    })
   ]
 });
