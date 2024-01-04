@@ -1,6 +1,5 @@
-import { getUUID } from "@b/lib";
 import { combineLatest, map, of, shareReplay, switchMap, take, tap } from "rxjs";
-import { getBehaviorSubject } from "../common/util";
+import { getBehaviorSubject, getUUID } from "../common/util";
 
 export type todosFilterType = "all" | "active" | "completed";
 
