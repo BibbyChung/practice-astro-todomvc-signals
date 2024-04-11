@@ -1,58 +1,59 @@
 import { CommonModule } from "@angular/common";
-import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, type AfterViewInit, type OnDestroy } from '@angular/core';
-import { tap } from "rxjs";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  viewChild
+} from "@angular/core";
+import { takeUntilDestroyed, toObservable } from "@angular/core/rxjs-interop";
+import { map, switchMap, tap } from "rxjs";
 import { getSubject } from "~/lib/common/util";
 import { addTodo } from "~/lib/services/todolist.service";
 
 @Component({
-  selector: 'bb-add-item',
+  selector: "bb-add-item",
   standalone: true,
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   template: `
     <header class="header">
       <h1>todos</h1>
-      <form (submit)="submitBtn$.next(true);$event.preventDefault();">
+      <form (submit)="submitBtn$.next(true); $event.preventDefault()">
         <input
           #inputRef
           class="new-todo"
-          placeholder="What needs to be done?"
-          [autofocus]="true"
-          />
+          placeholder="What needs to be done?" />
       </form>
     </header>
   `,
-  styles: `
-    :host {
-      display: contents;
-    }
-  `,
+  styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddItemComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('inputRef') inputRef?: ElementRef<HTMLInputElement>;
+export class AddItemComponent {
+  inputRefS = viewChild.required<ElementRef<HTMLInputElement>>("inputRef");
+  inputElem$ = toObservable(this.inputRefS).pipe(
+    map((ref) => ref.nativeElement)
+  );
 
   submitBtn$ = getSubject<boolean>();
 
   submitSub = this.submitBtn$
     .pipe(
-      tap(() => {
-        const v: string = this.inputRef?.nativeElement.value ?? "";
+      takeUntilDestroyed(),
+      switchMap(() => this.inputElem$),
+      tap((inputElem) => {
+        const v: string = inputElem.value;
         if (v !== "") {
           addTodo(v ?? "");
-          this.inputRef!.nativeElement.value = "";
+          inputElem.value = "";
         }
       })
     )
     .subscribe();
 
-  ngAfterViewInit(): void {
-    // https://stackoverflow.com/questions/41873893/angular2-autofocus-input-element
-    this.inputRef?.nativeElement.focus();
-  }
-
-  ngOnDestroy(): void {
-    this.submitSub.unsubscribe();
-  }
+  focusSub = this.inputElem$
+    .pipe(
+      takeUntilDestroyed(),
+      tap((elem) => elem.focus())
+    )
+    .subscribe();
 }
