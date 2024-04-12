@@ -19,7 +19,7 @@ import {
   type todoType
 } from "../../../lib/services/todolist.service";
 
-const params = defineProps<{props: todoType}>();
+const params = defineProps<{ props: todoType }>();
 
 let inputElemRef = ref<HTMLInputElement>();
 

@@ -4,7 +4,7 @@
   import { getSubject } from "~/lib/common/util";
   import {
     getTodos,
-    setAllTodosCompleted
+    setAllTodosCompleted,
   } from "~/lib/services/todolist.service";
   import AddItem from "./addItem.svelte";
   import Footer from "./footer.svelte";

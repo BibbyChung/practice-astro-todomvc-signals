@@ -23,7 +23,8 @@
       </li>
     </ul>
     <div>
-      <button v-if="isShowClearCompletedRef" @click.prevent="removeAllTodosBtn$.next(true)" class="clear-completed">Clear
+      <button v-if="isShowClearCompletedRef" @click.prevent="removeAllTodosBtn$.next(true)"
+        class="clear-completed">Clear
         completed
       </button>
     </div>
@@ -74,4 +75,3 @@ onUnmounted(() => {
   setTodosFilterSub.unsubscribe();
 });
 </script>
-
