@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
 import svelte from "@astrojs/svelte";
 import react from "@astrojs/react";
 import analogjsangular from "@analogjs/astro-angular";
@@ -11,7 +11,8 @@ export default defineConfig({
     react(),
     analogjsangular(),
     UnoCSS({
-      injectReset: true
-    })
-  ]
+      configFile: "./uno.config.ts",
+      injectReset: true,
+    }),
+  ],
 });

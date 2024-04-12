@@ -11,7 +11,7 @@ const props = Astro.props;
 <Layout {...props}>
   <main class="p-8">
     <div class="w-full">
-      <Menu client:visible />
+      <Menu client:load />
     </div>
     <div class="mt-12 w-full flex flex-col items-center">
       <slot />

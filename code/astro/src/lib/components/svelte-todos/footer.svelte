@@ -7,7 +7,7 @@
     getTodosFilter,
     removeAllTodosCompleted,
     setTodosFilter,
-    type todosFilterType
+    type todosFilterType,
   } from "~/lib/services/todolist.service";
 
   const removeAllTodosBtn$ = getSubject<boolean>();
@@ -53,22 +53,28 @@
       <a
         on:click|preventDefault={() => setTodosFilterBtn$.next("all")}
         href="#/"
-        class={$todoFilter$ === "all" ? "selected" : ""}>All</a
+        class={$todoFilter$ === "all" ? "selected" : ""}
       >
+        All
+      </a>
     </li>
     <li>
       <a
         on:click|preventDefault={() => setTodosFilterBtn$.next("active")}
         href="#/"
-        class={$todoFilter$ === "active" ? "selected" : ""}>Active</a
+        class={$todoFilter$ === "active" ? "selected" : ""}
       >
+        Active
+      </a>
     </li>
     <li>
       <a
         on:click|preventDefault={() => setTodosFilterBtn$.next("completed")}
         href="#/"
-        class={$todoFilter$ === "completed" ? "selected" : ""}>Completed</a
+        class={$todoFilter$ === "completed" ? "selected" : ""}
       >
+        Completed
+      </a>
     </li>
   </ul>
   <div>

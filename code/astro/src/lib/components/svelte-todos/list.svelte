@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { filter, map, startWith, switchMap, tap } from "rxjs";
+  import { filter, map, switchMap, tap } from "rxjs";
   import { onMount } from "svelte";
   import { getSubject } from "~/lib/common/util";
   import {
     getTodos,
-    setAllTodosCompleted
+    setAllTodosCompleted,
   } from "~/lib/services/todolist.service";
   import AddItem from "./addItem.svelte";
   import Footer from "./footer.svelte";
@@ -62,7 +62,7 @@
     <label for="toggle-all">Mark all as complete</label>
     <ul class="todo-list">
       {#each $todos$ as item}
-      <!-- {JSON.stringify(item)} -->
+        <!-- {JSON.stringify(item)} -->
         <Item params={item} />
       {/each}
     </ul>
