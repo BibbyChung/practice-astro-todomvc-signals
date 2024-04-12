@@ -2,21 +2,19 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    node: true
+    node: true,
   },
   extends: [
-    "standard-with-typescript",
+    "love",
     "plugin:astro/recommended",
     "plugin:svelte/recommended",
     "plugin:react-hooks/recommended",
-    "@unocss"
+    "@unocss",
   ],
-  plugins: [
-    "react-hooks"
-  ],
+  plugins: ["react-hooks"],
   parserOptions: {
     ecmaVersion: "latest",
-    sourceType: "module"
+    sourceType: "module",
   },
   overrides: [
     {
@@ -28,12 +26,12 @@ module.exports = {
       // It's the setting you need when using TypeScript.
       parserOptions: {
         parser: "@typescript-eslint/parser",
-        extraFileExtensions: [".astro"]
+        extraFileExtensions: [".astro"],
       },
       rules: {
         // override/add rules settings here, such as:
         // "astro/no-set-html-directive": "error"
-      }
+      },
     },
     {
       files: ["*.svelte"],
@@ -41,9 +39,9 @@ module.exports = {
       // Parse the `<script>` in `.svelte` as TypeScript by adding the following configuration.
       parserOptions: {
         parser: "@typescript-eslint/parser",
-        extraFileExtensions: [".svelte"]
-      }
-    }
+        extraFileExtensions: [".svelte"],
+      },
+    },
   ],
   rules: {
     "@typescript-eslint/explicit-module-boundary-types": 0,
@@ -62,6 +60,7 @@ module.exports = {
     "@typescript-eslint/no-confusing-void-expression": 0,
     "@typescript-eslint/no-misused-promises": 0,
     "@typescript-eslint/no-non-null-assertion": 0,
-    "@typescript-eslint/semi": ['warn', "always"]
-  }
+    "@typescript-eslint/comma-dangle": 0,
+    "@typescript-eslint/semi": ["warn", "always"],
+  },
 };
