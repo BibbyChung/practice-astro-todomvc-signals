@@ -1,12 +1,45 @@
 ---
 import HelloWorldSvelte from "~/lib/components/hello-world.svelte";
 import Main from "~/layouts/main.astro";
+
 ---
 
 <Main title="home">
   <HelloWorldSvelte />
+
+  <button class="btn mt-2">get user</button>
 </Main>
 
 <style></style>
+
+<script>
+  import { trpc } from "~/lib/common/trpc";
+  import { fromEvent, tap } from "rxjs";
+
+  const getUserSub = fromEvent(document.querySelector(".btn")!, "click")
+    .pipe(
+      tap(async (ev) => {
+        console.log(ev);
+        const id = "8888888";
+        await trpc.createUser.mutate({
+          id,
+          name: "bbbb",
+        });
+
+        const pAll = await Promise.allSettled([
+          trpc.getUserById.query(id),
+          trpc.getUserById.query(id),
+          trpc.getUserById.query(id),
+          trpc.getUserById.query(id),
+          trpc.getUserById.query(id),
+          trpc.getUserById.query(id),
+          trpc.getUserById.query(id),
+        ]);
+
+        console.log(pAll);
+      })
+    )
+    .subscribe();
+</script>
 
 <!-- title="Welcome to Astro." -->
