@@ -1,4 +1,12 @@
-import { combineLatest, map, of, shareReplay, switchMap, take, tap } from "rxjs";
+import {
+  combineLatest,
+  map,
+  of,
+  shareReplay,
+  switchMap,
+  take,
+  tap,
+} from "rxjs";
 import { getBehaviorSubject, getUUID } from "../common/util";
 
 export type todosFilterType = "all" | "active" | "completed";
@@ -13,8 +21,8 @@ const todos: todoType[] = [
   {
     id: "f33f9cd8-4941-4535-bef9-06200b918541",
     title: "abc",
-    completed: false
-  }
+    completed: false,
+  },
 ];
 
 const todosFilter$ = getBehaviorSubject<todosFilterType>("all");
@@ -41,7 +49,7 @@ export const addTodo = (title: string) => {
   const todo = {
     title,
     id: getUUID(),
-    completed: false
+    completed: false,
   };
 
   const todos = todos$.value;

@@ -5,7 +5,7 @@
   import {
     delTodo,
     updateTodo,
-    type todoType
+    type todoType,
   } from "~/lib/services/todolist.service";
 
   export let params: todoType;
