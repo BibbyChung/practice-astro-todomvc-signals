@@ -1,12 +1,7 @@
-import { initTRPC } from "@trpc/server";
-import type { Context } from "src/pages/api/trpc/[trpc]";
+import { userRouter } from "./user.router";
+import { todosRouter } from "./todos.router";
+import { trpcContext, type Context } from "./_context";
 import type { ZodTypeAny, z } from "zod";
-import {
-  getUserByIdInput,
-  getuserByIdHandle,
-  createUserInput,
-  createUserHandle,
-} from "./user.router";
 
 export type AppRouterType = typeof appRouter;
 
@@ -15,17 +10,7 @@ export type HandleOptsType<T extends ZodTypeAny> = {
   input: z.infer<T>;
 };
 
-const trpcContext = initTRPC.context<Context>().create();
-
-const userRouter = {
-  getUserById: trpcContext.procedure
-    .input(getUserByIdInput)
-    .query(getuserByIdHandle),
-  createUser: trpcContext.procedure
-    .input(createUserInput)
-    .mutation(createUserHandle),
-};
-
 export const appRouter = trpcContext.router({
-  ...userRouter,
+  user: trpcContext.router(userRouter),
+  todos: trpcContext.router(todosRouter),
 });

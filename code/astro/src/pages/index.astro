@@ -20,19 +20,19 @@ import HelloWorldSvelte from "~/lib/components/hello-world.svelte";
       tap(async (ev) => {
         console.log(ev);
         const id = "8888888";
-        await trpc.createUser.mutate({
+        await trpc.user.createUser.mutate({
           id,
           name: "bbbb",
         });
 
         const pAll = await Promise.allSettled([
-          trpc.getUserById.query(id),
-          trpc.getUserById.query(id),
-          trpc.getUserById.query(id),
-          trpc.getUserById.query(id),
-          trpc.getUserById.query(id),
-          trpc.getUserById.query(id),
-          trpc.getUserById.query(id),
+          trpc.user.getUserById.query(id),
+          trpc.user.getUserById.query(id),
+          trpc.user.getUserById.query(id),
+          trpc.user.getUserById.query(id),
+          trpc.user.getUserById.query(id),
+          trpc.user.getUserById.query(id),
+          trpc.user.getUserById.query(id),
         ]);
 
         console.log(pAll);

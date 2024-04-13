@@ -1,7 +1,7 @@
 import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
 import { tap } from "@trpc/server/observable";
-import { getUUID } from "./util";
 import type { AppRouterType } from "src/server/_init";
+import { getUUID } from "./util";
 
 const consoleFn = (isLog: boolean) => () => {
   if (isLog) {
