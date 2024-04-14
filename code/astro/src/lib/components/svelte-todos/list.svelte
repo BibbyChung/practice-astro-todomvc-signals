@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { filter, map, switchMap, tap } from "rxjs";
+  import { filter, map, startWith, switchMap, tap } from "rxjs";
   import { onMount } from "svelte";
   import { getSubject } from "~/lib/common/util";
   import {
@@ -10,11 +10,16 @@
   import Footer from "./footer.svelte";
   import Item from "./item.svelte";
 
+  const isReady$ = getSubject<boolean>();
+
   let checkboxToggleElem: HTMLInputElement;
 
   const checkSelectAllBtn$ = getSubject<boolean>();
 
-  const todos$ = getTodos();
+  const todos$ = isReady$.pipe(
+    switchMap(() => getTodos()),
+    startWith([])
+  );
 
   const checkSelectAllSub = checkSelectAllBtn$
     .pipe(
@@ -42,6 +47,7 @@
     .subscribe();
 
   onMount(() => {
+    isReady$.next(true);
     return () => {
       toggleCheckboxSub.unsubscribe();
       checkSelectAllSub.unsubscribe();

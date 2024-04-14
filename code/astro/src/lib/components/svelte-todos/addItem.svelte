@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { tap } from "rxjs";
+  import { switchMap, of } from "rxjs";
   import { onMount } from "svelte";
   import { getSubject } from "~/lib/common/util";
   import { addTodo } from "~/lib/services/todolist.service";
@@ -10,12 +10,13 @@
 
   const submitSub = submitBtn$
     .pipe(
-      tap(() => {
+      switchMap(() => {
         const v = inputRef?.value ?? "";
         if (v !== "") {
-          addTodo(v ?? "");
           inputRef.value = "";
+          return addTodo(v ?? "");
         }
+        return of(true);
       })
     )
     .subscribe();

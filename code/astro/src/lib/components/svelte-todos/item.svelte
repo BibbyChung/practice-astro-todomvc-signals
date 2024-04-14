@@ -1,12 +1,9 @@
 <script lang="ts">
-  import { filter, tap } from "rxjs";
+  import { filter, switchMap } from "rxjs";
+  import type { todoType } from "src/server/todos.router";
   import { onMount } from "svelte";
   import { getSubject } from "~/lib/common/util";
-  import {
-    delTodo,
-    updateTodo,
-    type todoType,
-  } from "~/lib/services/todolist.service";
+  import { delTodo, updateTodo } from "~/lib/services/todolist.service";
 
   export let params: todoType;
   let inputElem: HTMLInputElement;
@@ -17,16 +14,16 @@
   const updateItemSub = updateItemBtn$
     .pipe(
       filter(() => !!inputElem),
-      tap(() => {
+      switchMap(() => {
         const newObj = JSON.parse(JSON.stringify(params)) as todoType;
         newObj.completed = inputElem.checked;
-        updateTodo(newObj);
+        return updateTodo(newObj);
       })
     )
     .subscribe();
 
   const destroySub = destroyBtn$
-    .pipe(tap(() => delTodo(params.id)))
+    .pipe(switchMap(() => delTodo(params.id)))
     .subscribe();
 
   onMount(() => {
@@ -46,6 +43,7 @@
       on:change|preventDefault={() => updateItemBtn$.next(true)}
       bind:this={inputElem}
     />
+    <!-- // eslint-disable-next-line svelte/valid-compile -->
     <label>{params.title}</label>
     <button
       on:click|preventDefault={() => destroyBtn$.next(true)}

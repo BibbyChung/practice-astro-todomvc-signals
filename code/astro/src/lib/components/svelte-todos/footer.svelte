@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { map, switchMap, tap } from "rxjs";
+  import { map, startWith, switchMap, tap } from "rxjs";
   import { onMount } from "svelte";
   import { getSubject } from "~/lib/common/util";
   import {
@@ -10,17 +10,23 @@
     type todosFilterType,
   } from "~/lib/services/todolist.service";
 
+  const isReady$ = getSubject<boolean>();
   const removeAllTodosBtn$ = getSubject<boolean>();
   const setTodosFilterBtn$ = getSubject<todosFilterType>();
 
-  const isShowClearCompleted$ = getTodos().pipe(
+  const todos$ = isReady$.pipe(
+    switchMap(() => getTodos()),
+    startWith([])
+  );
+
+  const isShowClearCompleted$ = todos$.pipe(
     map((todos) => {
       const completedCount = todos.filter((a) => a.completed).length;
       return completedCount !== 0;
     })
   );
 
-  const uncompletedCount$ = getTodos().pipe(
+  const uncompletedCount$ = todos$.pipe(
     map((todos) => todos.filter((a) => !a.completed).length)
   );
 
@@ -35,6 +41,7 @@
     .subscribe();
 
   onMount(() => {
+    isReady$.next(true);
     return () => {
       removeAllTodosSub.unsubscribe();
       setTodosFilterSub.unsubscribe();
