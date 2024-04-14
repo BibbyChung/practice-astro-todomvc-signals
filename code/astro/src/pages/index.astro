@@ -13,7 +13,7 @@ import HelloWorldSvelte from "~/lib/components/hello-world.svelte";
 
 <script>
   import { trpc } from "~/lib/common/trpc";
-  import { fromEvent, tap } from "rxjs";
+  import { fromEvent, switchMap, tap, from } from "rxjs";
 
   const getUserSub = fromEvent(document.querySelector(".btn")!, "click")
     .pipe(
@@ -37,6 +37,13 @@ import HelloWorldSvelte from "~/lib/components/hello-world.svelte";
 
         console.log(pAll);
       })
+    )
+    .subscribe();
+
+  const getTodos = fromEvent(document.querySelector(".btn")!, "click")
+    .pipe(
+      switchMap(() => from(trpc.todos.getAll.query())),
+      tap((data) => console.log(data))
     )
     .subscribe();
 </script>
