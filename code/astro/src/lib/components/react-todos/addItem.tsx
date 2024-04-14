@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { tap } from "rxjs";
+import { of, switchMap } from "rxjs";
 import { useSubject } from "~/lib/common/rxjs-interop-react";
 import { addTodo } from "~/lib/services/todolist.service";
 
@@ -8,15 +8,18 @@ export default function AddItem() {
   const formSubmitForm$ = useSubject<boolean>();
 
   useEffect(() => {
-    const formSubmitSub = formSubmitForm$.pipe(
-      tap(() => {
-        const v = inputRef.current?.value ?? '';
-        if (v !== '' && inputRef.current) {
-          addTodo(v ?? '');
-          inputRef.current.value = "";
-        }
-      })
-    ).subscribe();
+    const formSubmitSub = formSubmitForm$
+      .pipe(
+        switchMap(() => {
+          const v = inputRef.current?.value ?? "";
+          if (v !== "" && inputRef.current) {
+            inputRef.current.value = "";
+            return addTodo(v ?? "");
+          }
+          return of(true);
+        })
+      )
+      .subscribe();
 
     return () => {
       formSubmitSub.unsubscribe();
@@ -30,8 +33,7 @@ export default function AddItem() {
         onSubmit={(e) => {
           formSubmitForm$.next(true);
           e.preventDefault();
-        }}
-      >
+        }}>
         <input
           className="new-todo"
           placeholder="What needs to be done?"

@@ -1,6 +1,6 @@
 import { useSignals } from "@preact/signals-react/runtime";
 import { useEffect, useRef } from "react";
-import { filter, map, switchMap, take, tap } from "rxjs";
+import { map, startWith, switchMap, tap } from "rxjs";
 import { toSignal, useSubject } from "~/lib/common/rxjs-interop-react";
 import {
   getTodos,
@@ -12,18 +12,18 @@ import Item from "./item";
 
 export default function TodoList() {
   useSignals();
-  const checkboxToggleRef = useRef<HTMLInputElement>(null);
   const isReady$ = useSubject<boolean>();
+  const checkboxToggleRef = useRef<HTMLInputElement>(null);
   const checkSelectAllBtn$ = useSubject<boolean>();
-  const todosSig = toSignal(getTodos());
+  const todos$ = isReady$.pipe(
+    switchMap(() => getTodos()),
+    startWith([])
+  );
+  const todosSig = toSignal(todos$);
 
   useEffect(() => {
-    isReady$.next(true);
-
-    const toggleCheckboxSub = isReady$
+    const toggleCheckboxSub = todos$
       .pipe(
-        filter((a) => a),
-        switchMap(() => getTodos()),
         map((todos) => {
           const total = todos.length;
           const selectedCount = todos.filter((a) => a.completed).length;
@@ -42,12 +42,13 @@ export default function TodoList() {
 
     const checkSelectAllSub = checkSelectAllBtn$
       .pipe(
-        take(1),
         switchMap(() =>
           setAllTodosCompleted(checkboxToggleRef.current?.checked ?? false)
         )
       )
       .subscribe();
+
+    isReady$.next(true);
 
     return () => {
       toggleCheckboxSub.unsubscribe();

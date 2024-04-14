@@ -1,6 +1,6 @@
 import { useSignals } from "@preact/signals-react/runtime";
 import { useEffect } from "react";
-import { map, switchMap, tap } from "rxjs";
+import { map, startWith, switchMap, tap } from "rxjs";
 import { toSignal, useSubject } from "~/lib/common/rxjs-interop-react";
 import {
   getTodos,
@@ -12,12 +12,16 @@ import {
 
 export default function Footer() {
   useSignals();
-
+  const isReady$ = useSubject<boolean>();
   const removeAllTodosBtn$ = useSubject<boolean>();
   const setTodosFilterBtn$ = useSubject<todosFilterType>();
+  const todos$ = isReady$.pipe(
+    switchMap(() => getTodos()),
+    startWith([])
+  );
 
   const isShowClearCompletedSig = toSignal(
-    getTodos().pipe(
+    todos$.pipe(
       map((todos) => {
         const completedCount = todos.filter((a) => a.completed).length;
         return completedCount !== 0;
@@ -26,7 +30,7 @@ export default function Footer() {
   );
 
   const uncompletedCountSig = toSignal(
-    getTodos().pipe(map((todos) => todos.filter((a) => !a.completed).length))
+    todos$.pipe(map((todos) => todos.filter((a) => !a.completed).length))
   );
 
   const todoFilterSig = toSignal(getTodosFilter());
@@ -39,6 +43,8 @@ export default function Footer() {
     const setTodosFilterSub = setTodosFilterBtn$
       .pipe(tap((type) => setTodosFilter(type)))
       .subscribe();
+
+    isReady$.next(true);
 
     return () => {
       removeAllTodosSub.unsubscribe();
