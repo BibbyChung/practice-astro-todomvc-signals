@@ -1,12 +1,20 @@
 ---
 import Main from "~/layouts/main.astro";
 import HelloWorldSvelte from "~/lib/components/hello-world.svelte";
+import { getAstroContext } from "~/lib/services/layout.service";
+import { appCaller } from "../server/_init";
+
+export const prerender = false;
+
+const id = "a8888888";
+const user = await appCaller(getAstroContext(Astro)).user.getUserById(id);
 ---
 
 <Main title="home">
   <HelloWorldSvelte />
-
+  {JSON.stringify(user)}
   <button class="btn mt-2">get user</button>
+  <div data-uu={JSON.stringify(user)}></div>
 </Main>
 
 <style></style>
@@ -46,6 +54,11 @@ import HelloWorldSvelte from "~/lib/components/hello-world.svelte";
       tap((data) => console.log(data))
     )
     .subscribe();
+
+  const uuElem = document.querySelector("[data-uu]") as HTMLElement;
+  if (uuElem) {
+    console.log(uuElem.dataset.uu);
+  }
 </script>
 
 <!-- title="Welcome to Astro." -->

@@ -1,6 +1,6 @@
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
-import { type APIRoute } from "astro";
-import { createContext } from "src/server/_context";
+import type { APIRoute } from "astro";
+import { createContext, trpcContext } from "src/server/_context";
 import { appRouter } from "src/server/_init";
 
 export const prerender = false;

@@ -1,14 +1,15 @@
 import { filter, map } from "rxjs";
 import { getBehaviorSubject } from "../common/util";
+import type { AstroGlobal } from "astro";
 
-export const isClient = () => {
+export const getIsBrowser = () => {
   try {
-    if (window) {
+    if (typeof window !== "undefined") {
       return true;
     }
     return false;
   } catch (err) {
-    return true;
+    return false;
   }
 };
 
@@ -23,6 +24,12 @@ export const getWindow = () =>
     filter((a) => !!a),
     map((a) => a!)
   );
+
+export const getAstroContext = (astroGlobal: AstroGlobal) => ({
+  req: astroGlobal.request,
+  resHeaders: astroGlobal.response.headers,
+  user: { name: "", token: "" },
+});
 
 // title
 const title$ = getBehaviorSubject<string | null>(null);

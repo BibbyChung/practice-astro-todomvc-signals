@@ -7,7 +7,12 @@ type User = {
   name: string;
   bio?: string;
 };
-const users: Record<string, User> = {};
+const users: Record<string, User> = {
+  a8888888: {
+    id: "5e7e051d-6108-43f0-b077-d2cc22879d3b",
+    name: "bbb09990",
+  },
+};
 
 export const getUserByIdInput = z.string();
 const getuserByIdHandle = (opts: HandleOptsType<typeof getUserByIdInput>) => {

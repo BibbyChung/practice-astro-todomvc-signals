@@ -1,8 +1,28 @@
 ---
+import { appCaller } from "src/server/_init";
 import Main from "~/layouts/main.astro";
 import TodosSvelteApp from "~/lib/components/svelte-todos/app.svelte";
+import { getAstroContext } from "~/lib/services/layout.service";
+import { setTodosSSR } from "~/lib/services/todolist.service";
+
+export const prerender = false;
+
+const astroContext = getAstroContext(Astro);
+const todos = await appCaller(astroContext).todos.getAll();
+setTodosSSR(todos);
 ---
 
-<Main title="todos-svelte">
+<Main title="todos-svelte(ssr)">
   <TodosSvelteApp client:load />
+  <div data-todos={JSON.stringify(todos)}></div>
 </Main>
+
+<script>
+  import type { todoType } from "src/server/todos.router";
+  import { setTodosSSR } from "~/lib/services/todolist.service";
+
+  const uuElem = document.querySelector("[data-todos]") as HTMLElement;
+  if (uuElem) {
+    setTodosSSR(JSON.parse(uuElem?.dataset.todos ?? "[]") as todoType[]);
+  }
+</script>

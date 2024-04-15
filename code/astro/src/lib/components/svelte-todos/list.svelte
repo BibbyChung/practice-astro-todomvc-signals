@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { filter, map, startWith, switchMap, tap } from "rxjs";
+  import { filter, map, merge, switchMap, tap } from "rxjs";
   import { onMount } from "svelte";
   import { getSubject } from "~/lib/common/util";
   import {
     getTodos,
+    getTodosSSR,
     setAllTodosCompleted,
   } from "~/lib/services/todolist.service";
   import AddItem from "./addItem.svelte";
@@ -16,9 +17,9 @@
 
   const checkSelectAllBtn$ = getSubject<boolean>();
 
-  const todos$ = isReady$.pipe(
-    switchMap(() => getTodos()),
-    startWith([])
+  const todos$ = merge(
+    getTodosSSR(),
+    isReady$.pipe(switchMap(() => getTodos()))
   );
 
   const checkSelectAllSub = checkSelectAllBtn$
@@ -66,6 +67,7 @@
       bind:this={checkboxToggleElem}
     />
     <label for="toggle-all">Mark all as complete</label>
+    <!-- {JSON.stringify($todos$)} -->
     <ul class="todo-list">
       {#each $todos$ as item}
         <!-- {JSON.stringify(item)} -->

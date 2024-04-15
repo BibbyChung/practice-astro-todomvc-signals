@@ -14,3 +14,5 @@ export const appRouter = trpcContext.router({
   user: trpcContext.router(userRouter),
   todos: trpcContext.router(todosRouter),
 });
+
+export const appCaller = trpcContext.createCallerFactory(appRouter);

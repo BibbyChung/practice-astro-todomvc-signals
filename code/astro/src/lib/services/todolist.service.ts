@@ -19,8 +19,18 @@ export const getTodosFilter = () => todosFilter$.asObservable();
 
 const refetchTodos = () => setTodosFilter(todosFilter$.value);
 
-const todos$ = getTodosFilter().pipe(
-  switchMap((f) => combineLatest([from(trpc.todos.getAll.query()), of(f)])),
+const todosSSR$ = getBehaviorSubject<todoType[]>([]);
+export const setTodosSSR = (v: todoType[]) => todosSSR$.next(v);
+export const getTodosSSR = () => todosSSR$.asObservable();
+
+const todosBrowser$ = getTodosFilter().pipe(
+  switchMap((f) =>
+    combineLatest([
+      // this can't be called in server
+      from(trpc.todos.getAll.query()),
+      of(f),
+    ])
+  ),
   map(([todos, f]) => {
     switch (f) {
       case "active":
@@ -33,7 +43,7 @@ const todos$ = getTodosFilter().pipe(
   }),
   shareReplay(1)
 );
-export const getTodos = () => todos$;
+export const getTodos = () => todosBrowser$;
 export const addTodo = (title: string) => {
   const todo = {
     title,

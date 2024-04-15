@@ -5,16 +5,16 @@
   export const menus = [
     {
       title: "Home",
-      path: "/"
+      path: "/",
     },
     {
       title: "Todos-React",
-      path: "/todos-react/"
+      path: "/todos-react/",
     },
     {
-      title: "Todos-svelte",
-      path: "/todos-svelte/"
-    }
+      title: "Todos-svelte(ssr)",
+      path: "/todos-svelte/",
+    },
     // {
     //   title: "SSR",
     //   path: "/ssr/",
@@ -38,8 +38,10 @@
       <a
         class:text-red-5={($location$?.pathname ?? "") === item.path}
         class="text-blue-5 underline"
-        href={item.path}>{item.title}</a
+        href={item.path}
       >
+        {item.title}
+      </a>
     </li>
   {/each}
 </ul>
