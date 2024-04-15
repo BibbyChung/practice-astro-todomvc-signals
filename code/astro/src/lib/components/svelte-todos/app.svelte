@@ -1,6 +1,10 @@
 <script lang="ts">
+  import type { todoType } from "src/server/todos.router";
+  import { setTodosSSR } from "~/lib/services/todolist.service";
   import List from "./list.svelte";
-  // your script goes here
+
+  export let todos: todoType[] = [];
+  setTodosSSR(todos);
 </script>
 
 <div class="min-w-2xl">

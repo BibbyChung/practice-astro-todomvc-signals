@@ -1,6 +1,6 @@
+import type { AstroGlobal } from "astro";
 import { filter, map } from "rxjs";
 import { getBehaviorSubject } from "../common/util";
-import type { AstroGlobal } from "astro";
 
 export const getIsBrowser = () => {
   try {
@@ -25,11 +25,15 @@ export const getWindow = () =>
     map((a) => a!)
   );
 
-export const getAstroContext = (astroGlobal: AstroGlobal) => ({
-  req: astroGlobal.request,
-  resHeaders: astroGlobal.response.headers,
-  user: { name: "", token: "" },
-});
+// astro context
+export const getAstroContext = (astro: AstroGlobal) => {
+  const context = {
+    req: astro.request,
+    resHeaders: astro.response.headers,
+    user: { name: "", token: "" },
+  };
+  return context;
+};
 
 // title
 const title$ = getBehaviorSubject<string | null>(null);
