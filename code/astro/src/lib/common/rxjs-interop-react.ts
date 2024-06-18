@@ -1,15 +1,32 @@
-import { computed, effect, signal, untracked, type Signal } from "@preact/signals-react";
-import { useMemo, useRef, type MutableRefObject } from "react";
-import { Observable, ReplaySubject, type Subscribable } from 'rxjs';
+import {
+  computed,
+  effect,
+  signal,
+  untracked,
+  type Signal,
+} from "@preact/signals-react";
+import {
+  useMemo,
+  useRef,
+  useState,
+  useEffect,
+  type MutableRefObject,
+} from "react";
+import { Observable, ReplaySubject, tap, type Subscribable } from "rxjs";
 import { getSubject } from "./util";
 
 type FunctionOrNullType = typeof Function | null;
 
-const registry = new FinalizationRegistry((cleanupRef: MutableRefObject<FunctionOrNullType>) => {
-  cleanupRef.current?.();
-});
+const registry = new FinalizationRegistry(
+  (cleanupRef: MutableRefObject<FunctionOrNullType>) => {
+    cleanupRef.current?.();
+  }
+);
 
-export default function useMemoCleanup<T>(callback: () => [T, FunctionOrNullType], deps: unknown[]) {
+export default function useMemoCleanup<T>(
+  callback: () => [T, FunctionOrNullType],
+  deps: unknown[]
+) {
   const cleanupRef = useRef<FunctionOrNullType>(null); // holds a cleanup value
   const unmountRef = useRef(false); // the GC-triggering candidate
 
@@ -68,12 +85,15 @@ export function toSignal<T, U = undefined>(
 ): Signal<T | U | null | undefined> {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useMemoCleanup(() => {
-    const state: Signal<State<T | U>> = signal<State<T | U>>({ kind: StateKind.Value, value: options?.initialValue as U });
+    const state: Signal<State<T | U>> = signal<State<T | U>>({
+      kind: StateKind.Value,
+      value: options?.initialValue as U,
+    });
     const sub = source.subscribe({
-      next: value => {
+      next: (value) => {
         let v: unknown;
         try {
-          if (typeof value === 'object' && value !== null) {
+          if (typeof value === "object" && value !== null) {
             v = Array.isArray(value) ? [...value] : { ...value };
           } else {
             v = value;
@@ -83,12 +103,12 @@ export function toSignal<T, U = undefined>(
         }
         state.value = { kind: StateKind.Value, value: v as any as T };
       },
-      error: error => {
+      error: (error) => {
         if (options?.rejectErrors) {
           throw error;
         }
         state.value = { kind: StateKind.Error, error };
-      }
+      },
     });
 
     const disponseFunc = () => {
@@ -105,14 +125,12 @@ export function toSignal<T, U = undefined>(
             throw current.error;
         }
       }),
-      disponseFunc as FunctionOrNullType
+      disponseFunc as FunctionOrNullType,
     ];
   }, []);
 }
 
-export function toObservable<T>(
-  source: Signal<T>
-): Observable<T> {
+export function toObservable<T>(source: Signal<T>): Observable<T> {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useMemoCleanup(() => {
     const subject = new ReplaySubject<T>(1);
@@ -133,10 +151,7 @@ export function toObservable<T>(
       subject.complete();
     };
 
-    return [
-      subject.asObservable(),
-      disposeFunc as FunctionOrNullType
-    ];
+    return [subject.asObservable(), disposeFunc as FunctionOrNullType];
   }, []);
 }
 
@@ -148,9 +163,34 @@ export const useSubject = <T>() => {
       subject.complete();
     };
 
-    return [
-      subject,
-      disposeFunc as FunctionOrNullType
-    ];
+    return [subject, disposeFunc as FunctionOrNullType];
   }, []);
+};
+
+export const useObservable = <T>(
+  sb$: Observable<T>,
+  defaultV: T | null = null
+): T | null => {
+  const [value, setValue] = useState<T | null>(defaultV);
+  useEffect(() => {
+    const sub = sb$
+      .pipe(
+        tap((v) => {
+          if (Array.isArray(v)) {
+            const arr = [...v] as T;
+            setValue(arr);
+          } else {
+            setValue(v);
+          }
+        })
+      )
+      .subscribe();
+    // console.log("subscribe...");
+    return () => {
+      sub.unsubscribe();
+      // console.log("unsubscribe...");
+    };
+  }, []);
+
+  return value;
 };
