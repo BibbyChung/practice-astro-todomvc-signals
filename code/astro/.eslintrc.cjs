@@ -1,32 +1,24 @@
+/** @type {import("eslint").Linter.Config} */
 module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-    node: true,
-  },
   extends: [
-    "love",
-    "plugin:astro/recommended",
-    "plugin:svelte/recommended",
-    "plugin:react-hooks/recommended",
-    "@unocss",
+    'plugin:astro/recommended',
+    'plugin:svelte/recommended',
+    'plugin:react-hooks/recommended',
+    '@unocss',
   ],
-  plugins: ["react-hooks"],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
+    tsconfigRootDir: __dirname,
+    sourceType: 'module',
+    ecmaVersion: 'latest',
   },
   overrides: [
     {
-      // Define the configuration for `.astro` file.
-      files: ["*.astro"],
-      // Allows Astro components to be parsed.
-      parser: "astro-eslint-parser",
-      // Parse the script in `.astro` as TypeScript by adding the following configuration.
-      // It's the setting you need when using TypeScript.
+      files: ['*.astro'],
+      parser: 'astro-eslint-parser',
       parserOptions: {
-        parser: "@typescript-eslint/parser",
-        extraFileExtensions: [".astro"],
+        parser: '@typescript-eslint/parser',
+        extraFileExtensions: ['.astro'],
       },
       rules: {
         // override/add rules settings here, such as:
@@ -34,33 +26,13 @@ module.exports = {
       },
     },
     {
-      files: ["*.svelte"],
-      parser: "svelte-eslint-parser",
+      files: ['*.svelte'],
+      parser: 'svelte-eslint-parser',
       // Parse the `<script>` in `.svelte` as TypeScript by adding the following configuration.
       parserOptions: {
-        parser: "@typescript-eslint/parser",
-        extraFileExtensions: [".svelte"],
+        parser: '@typescript-eslint/parser',
+        extraFileExtensions: ['.svelte'],
       },
     },
   ],
-  rules: {
-    "@typescript-eslint/explicit-module-boundary-types": 0,
-    "@typescript-eslint/member-delimiter-style": 0,
-    "@typescript-eslint/quotes": 0,
-    "@typescript-eslint/no-unused-vars": 0,
-    "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/triple-slash-reference": 0,
-    "@typescript-eslint/strict-boolean-expressions": 0,
-    "@typescript-eslint/no-empty-interface": 0,
-    "@typescript-eslint/space-before-function-paren": 0,
-    "@typescript-eslint/consistent-type-definitions": 0,
-    "@typescript-eslint/promise-function-async": 0,
-    "@typescript-eslint/no-floating-promises": 0,
-    "@typescript-eslint/consistent-type-imports": 0,
-    "@typescript-eslint/no-confusing-void-expression": 0,
-    "@typescript-eslint/no-misused-promises": 0,
-    "@typescript-eslint/no-non-null-assertion": 0,
-    "@typescript-eslint/comma-dangle": 0,
-    "@typescript-eslint/semi": ["warn", "always"],
-  },
-};
+}
