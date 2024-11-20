@@ -1,0 +1,1 @@
+import{B as e,S as n}from"./map.BOKCRUkl.js";const a=()=>new n,c=x=>new e(x),s=()=>"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(x){const t=Math.random()*16|0;return(x==="x"?t:t&3|8).toString(16)});export{c as a,s as b,a as g};
