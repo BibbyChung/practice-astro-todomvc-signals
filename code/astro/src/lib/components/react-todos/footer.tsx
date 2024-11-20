@@ -1,89 +1,92 @@
-import { useSignals } from "@preact/signals-react/runtime";
-import { useEffect } from "react";
-import { map, switchMap, tap } from "rxjs";
-import { toSignal, useSubject } from "~/lib/common/rxjs-interop-react";
+import { useSignals } from '@preact/signals-react/runtime'
+import { useEffect } from 'react'
+import { map, switchMap, tap } from 'rxjs'
+import { toSignal, useSubject } from '~/lib/common/rxjs-interop-react'
 import {
   getTodos,
   getTodosFilter,
   removeAllTodosCompleted,
   setTodosFilter,
   type todosFilterType,
-} from "~/lib/services/todolist.service";
+} from '~/lib/services/todolist.service'
 
 export default function Footer() {
-  useSignals();
+  useSignals()
 
-  const removeAllTodosBtn$ = useSubject<boolean>();
-  const setTodosFilterBtn$ = useSubject<todosFilterType>();
+  const removeAllTodosBtn$ = useSubject<boolean>()
+  const setTodosFilterBtn$ = useSubject<todosFilterType>()
 
   const isShowClearCompletedSig = toSignal(
     getTodos().pipe(
       map((todos) => {
-        const completedCount = todos.filter((a) => a.completed).length;
-        return completedCount !== 0;
+        const completedCount = todos.filter((a) => a.completed).length
+        return completedCount !== 0
       })
     )
-  );
+  )
 
   const uncompletedCountSig = toSignal(
     getTodos().pipe(map((todos) => todos.filter((a) => !a.completed).length))
-  );
+  )
 
-  const todoFilterSig = toSignal(getTodosFilter());
+  const todoFilterSig = toSignal(getTodosFilter())
 
   useEffect(() => {
     const removeAllTodosSub = removeAllTodosBtn$
       .pipe(switchMap(() => removeAllTodosCompleted()))
-      .subscribe();
+      .subscribe()
 
     const setTodosFilterSub = setTodosFilterBtn$
       .pipe(tap((type) => setTodosFilter(type)))
-      .subscribe();
+      .subscribe()
 
     return () => {
-      removeAllTodosSub.unsubscribe();
-      setTodosFilterSub.unsubscribe();
-    };
-  }, []);
+      removeAllTodosSub.unsubscribe()
+      setTodosFilterSub.unsubscribe()
+    }
+  }, [])
 
   return (
-    <footer className="footer">
+    <footer className='footer'>
       <span>
         {uncompletedCountSig.value === 1
-          ? "1 uncompleted item left"
+          ? '1 uncompleted item left'
           : `${uncompletedCountSig.value} uncompleted items left`}
       </span>
-      <ul className="filters">
+      <ul className='filters'>
         <li>
           <a
             onClick={(e) => {
-              setTodosFilterBtn$.next("all");
-              e.preventDefault();
+              setTodosFilterBtn$.next('all')
+              e.preventDefault()
             }}
-            href="#/"
-            className={todoFilterSig.value === "all" ? "selected" : ""}>
+            href='#/'
+            className={todoFilterSig.value === 'all' ? 'selected' : ''}
+          >
             All
           </a>
         </li>
         <li>
           <a
             onClick={(e) => {
-              setTodosFilterBtn$.next("active");
-              e.preventDefault();
+              setTodosFilterBtn$.next('active')
+              e.preventDefault()
             }}
-            href="#/"
-            className={todoFilterSig.value === "active" ? "selected" : ""}>
+            href='#/'
+            className={todoFilterSig.value === 'active' ? 'selected' : ''}
+          >
             Active
           </a>
         </li>
         <li>
           <a
             onClick={(e) => {
-              setTodosFilterBtn$.next("completed");
-              e.preventDefault();
+              setTodosFilterBtn$.next('completed')
+              e.preventDefault()
             }}
-            href="#/"
-            className={todoFilterSig.value === "completed" ? "selected" : ""}>
+            href='#/'
+            className={todoFilterSig.value === 'completed' ? 'selected' : ''}
+          >
             Completed
           </a>
         </li>
@@ -92,15 +95,16 @@ export default function Footer() {
         {isShowClearCompletedSig.value ? (
           <button
             onClick={(e) => {
-              removeAllTodosBtn$.next(true);
+              removeAllTodosBtn$.next(true)
             }}
-            className="clear-completed">
+            className='clear-completed'
+          >
             Clear completed
           </button>
         ) : (
-          ""
+          ''
         )}
       </div>
     </footer>
-  );
+  )
 }

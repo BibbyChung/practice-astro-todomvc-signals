@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { map } from 'rxjs';
-  import { getWindow } from '~/lib/services/layout.service';
-  const baseUrl = import.meta.env.BASE_URL;
+  import { map } from 'rxjs'
+  import { getWindow } from '~/lib/services/layout.service'
+  const baseUrl = import.meta.env.BASE_URL
 
   export const menus = [
     {
@@ -28,9 +28,9 @@
     //   title: "EXCEPTION",
     //   path: "/exception/",
     // },
-  ];
+  ]
 
-  const location$ = getWindow().pipe(map((w) => w.location));
+  const location$ = getWindow().pipe(map((w) => w.location))
 </script>
 
 <ul class="flex">

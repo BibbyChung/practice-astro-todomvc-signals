@@ -1,5 +1,5 @@
 <script lang="ts">
-  import List from "./list.svelte";
+  import List from './list.svelte'
   // your script goes here
 </script>
 

@@ -1,7 +1,7 @@
-import { defineConfig } from 'astro/config';
-import svelte from '@astrojs/svelte';
-import react from '@astrojs/react';
-import UnoCSS from 'unocss/astro';
+import { defineConfig } from 'astro/config'
+import svelte from '@astrojs/svelte'
+import react from '@astrojs/react'
+import UnoCSS from 'unocss/astro'
 
 // https://astro.build/config
 export default defineConfig({
@@ -19,6 +19,6 @@ export default defineConfig({
   // github pages
   // https://www.cmsoftdev.com/01-github-deploy/
   build: {
-    assets: 'assets'
+    assets: 'assets',
   },
-});
+})

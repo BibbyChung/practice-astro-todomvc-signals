@@ -1,20 +1,20 @@
 ---
-import "virtual:uno.css";
+import 'virtual:uno.css'
 
 interface Props {
-  title: string;
+  title: string
 }
-const props = Astro.props;
+const props = Astro.props
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang='en'>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
+    <meta charset='UTF-8' />
+    <meta name='description' content='Astro description' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta name='generator' content={Astro.generator} />
     <title>{props.title}</title>
   </head>
   <body>
@@ -23,10 +23,10 @@ const props = Astro.props;
 </html>
 
 <script>
-  import { setWindow } from "~/lib/services/layout.service";
+  import { setWindow } from '~/lib/services/layout.service'
 
-  const w = window;
-  setWindow(w);
+  const w = window
+  setWindow(w)
 </script>
 
 <style is:global>
@@ -129,7 +129,7 @@ const props = Astro.props;
   }
 
   .toggle-all + label:before {
-    content: "❯";
+    content: '❯';
     font-size: 22px;
     color: #e6e6e6;
     padding: 10px 27px 10px 27px;
@@ -190,13 +190,13 @@ const props = Astro.props;
   }
 
   .todo-list li .toggle + label {
-    background-image: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23ededed%22%20stroke-width%3D%223%22/%3E%3C/svg%3E");
+    background-image: url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23ededed%22%20stroke-width%3D%223%22/%3E%3C/svg%3E');
     background-repeat: no-repeat;
     background-position: center left;
   }
 
   .todo-list li .toggle:checked + label {
-    background-image: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23bddad5%22%20stroke-width%3D%223%22/%3E%3Cpath%20fill%3D%22%235dc2af%22%20d%3D%22M72%2025L42%2071%2027%2056l-4%204%2020%2020%2034-52z%22/%3E%3C/svg%3E");
+    background-image: url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23bddad5%22%20stroke-width%3D%223%22/%3E%3Cpath%20fill%3D%22%235dc2af%22%20d%3D%22M72%2025L42%2071%2027%2056l-4%204%2020%2020%2034-52z%22/%3E%3C/svg%3E');
   }
 
   .todo-list li label {
@@ -232,7 +232,7 @@ const props = Astro.props;
   }
 
   .todo-list li .destroy:after {
-    content: "×";
+    content: '×';
   }
 
   .todo-list li:hover .destroy {
@@ -257,7 +257,7 @@ const props = Astro.props;
   }
 
   .footer:before {
-    content: "";
+    content: '';
     @apply pointer-events-none;
     position: absolute;
     right: 0;
@@ -429,7 +429,7 @@ const props = Astro.props;
   }
 
   .quote p:before {
-    content: "“";
+    content: '“';
     font-size: 50px;
     opacity: 0.15;
     position: absolute;
@@ -438,7 +438,7 @@ const props = Astro.props;
   }
 
   .quote p:after {
-    content: "”";
+    content: '”';
     font-size: 50px;
     opacity: 0.15;
     position: absolute;
@@ -469,7 +469,7 @@ const props = Astro.props;
   }
 
   .speech-bubble:after {
-    content: "";
+    content: '';
     position: absolute;
     top: 100%;
     right: 30px;

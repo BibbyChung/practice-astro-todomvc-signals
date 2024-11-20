@@ -1,52 +1,49 @@
 <script lang="ts">
-  import { filter, map, switchMap, tap } from "rxjs";
-  import { onMount } from "svelte";
-  import { getSubject } from "~/lib/common/util";
-  import {
-    getTodos,
-    setAllTodosCompleted,
-  } from "~/lib/services/todolist.service";
-  import AddItem from "./addItem.svelte";
-  import Footer from "./footer.svelte";
-  import Item from "./item.svelte";
+  import { filter, map, switchMap, tap } from 'rxjs'
+  import { onMount } from 'svelte'
+  import { getSubject } from '~/lib/common/util'
+  import { getTodos, setAllTodosCompleted } from '~/lib/services/todolist.service'
+  import AddItem from './addItem.svelte'
+  import Footer from './footer.svelte'
+  import Item from './item.svelte'
 
-  let checkboxToggleElem: HTMLInputElement;
+  let checkboxToggleElem: HTMLInputElement
 
-  const checkSelectAllBtn$ = getSubject<boolean>();
+  const checkSelectAllBtn$ = getSubject<boolean>()
 
-  const todos$ = getTodos();
+  const todos$ = getTodos()
 
   const checkSelectAllSub = checkSelectAllBtn$
     .pipe(
       filter(() => !!checkboxToggleElem),
       switchMap(() => setAllTodosCompleted(checkboxToggleElem.checked))
     )
-    .subscribe();
+    .subscribe()
 
   const toggleCheckboxSub = todos$
     .pipe(
       map((todos) => {
-        const total = todos.length;
-        const selectedCount = todos.filter((a) => a.completed).length;
+        const total = todos.length
+        const selectedCount = todos.filter((a) => a.completed).length
         if (total === 0) {
-          return false;
+          return false
         }
-        return total === selectedCount;
+        return total === selectedCount
       }),
       tap((isSelected) => {
         if (checkboxToggleElem) {
-          checkboxToggleElem.checked = isSelected;
+          checkboxToggleElem.checked = isSelected
         }
       })
     )
-    .subscribe();
+    .subscribe()
 
   onMount(() => {
     return () => {
-      toggleCheckboxSub.unsubscribe();
-      checkSelectAllSub.unsubscribe();
-    };
-  });
+      toggleCheckboxSub.unsubscribe()
+      checkSelectAllSub.unsubscribe()
+    }
+  })
 </script>
 
 <section class="todoapp">
