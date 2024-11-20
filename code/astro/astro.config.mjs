@@ -19,6 +19,6 @@ export default defineConfig({
   // github pages
   // https://www.cmsoftdev.com/01-github-deploy/
   build: {
-    assets: 'astro'
+    assets: 'assets'
   },
 });
