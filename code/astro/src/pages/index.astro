@@ -1,5 +1,6 @@
 ---
 import Main from "~/layouts/main.astro";
+import Env from "~/lib/components/env.svelte";
 import HelloWorldSvelte from "~/lib/components/hello-world.svelte";
 import { getAstroContext } from "~/lib/services/layout.service";
 import { appCaller } from "../server/_init";
@@ -11,6 +12,8 @@ const user = await appCaller(getAstroContext(Astro)).user.getUserById(id);
 ---
 
 <Main title="home">
+  <Env />
+  <hr />
   <HelloWorldSvelte />
   {JSON.stringify(user)}
   <button class="btn mt-2">get user</button>
