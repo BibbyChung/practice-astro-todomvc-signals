@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ListComponent } from './list.component';
+import { CommonModule } from '@angular/common'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { ListComponent } from './list.component'
 
 @Component({
   selector: 'bb-todos',
@@ -22,6 +22,6 @@ import { ListComponent } from './list.component';
       display: contents;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodosComponent {}
