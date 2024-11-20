@@ -9,7 +9,7 @@
       path: baseUrl + '',
     },
     {
-      title: 'Todos-React',
+      title: 'Todos-React(ssr)',
       path: baseUrl + 'todos-react/',
     },
     {

@@ -1,16 +1,16 @@
 ---
-import { appCaller } from "src/server/_init";
-import Main from "~/layouts/main.astro";
-import TodosSvelteApp from "~/lib/components/svelte-todos/app.svelte";
-import { getAstroContext } from "~/lib/services/layout.service";
-import { setTodosSSR } from "~/lib/services/todolist.service";
+import { appCaller } from 'src/server/_init'
+import Main from '~/layouts/main.astro'
+import TodosSvelteApp from '~/lib/components/svelte-todos/app.svelte'
+import { getAstroContext } from '~/lib/services/layout.service'
+import { setTodosSSR } from '~/lib/services/todolist.service'
 
-export const prerender = false;
-const todos = await appCaller(getAstroContext(Astro)).todos.getAll();
-setTodosSSR(todos);
+export const prerender = false
+const todos = await appCaller(getAstroContext(Astro)).todos.getAll()
+setTodosSSR(todos)
 ---
 
-<Main title="todos-svelte(ssr)">
+<Main title='todos-svelte(ssr)'>
   <TodosSvelteApp todos={todos} client:load />
   <!-- <div data-todos={JSON.stringify(todos)}></div> -->
 </Main>

@@ -1,40 +1,40 @@
 ---
-import Main from "~/layouts/main.astro";
-import Env from "~/lib/components/env.svelte";
-import HelloWorldSvelte from "~/lib/components/hello-world.svelte";
-import { getAstroContext } from "~/lib/services/layout.service";
-import { appCaller } from "../server/_init";
+import Main from '~/layouts/main.astro'
+import Env from '~/lib/components/env.svelte'
+import HelloWorldSvelte from '~/lib/components/hello-world.svelte'
+import { getAstroContext } from '~/lib/services/layout.service'
+import { appCaller } from '../server/_init'
 
-export const prerender = false;
+export const prerender = false
 
-const id = "a8888888";
-const user = await appCaller(getAstroContext(Astro)).user.getUserById(id);
+const id = 'a8888888'
+const user = await appCaller(getAstroContext(Astro)).user.getUserById(id)
 ---
 
-<Main title="home">
+<Main title='home'>
   <Env />
   <hr />
   <HelloWorldSvelte />
   {JSON.stringify(user)}
-  <button class="btn mt-2">get user</button>
+  <button class='btn mt-2'>get user</button>
   <div data-uu={JSON.stringify(user)}></div>
 </Main>
 
 <style></style>
 
 <script>
-  import { trpc } from "~/lib/common/trpc";
-  import { fromEvent, switchMap, tap, from } from "rxjs";
+  import { trpc } from '~/lib/common/trpc'
+  import { fromEvent, switchMap, tap, from } from 'rxjs'
 
-  const getUserSub = fromEvent(document.querySelector(".btn")!, "click")
+  const getUserSub = fromEvent(document.querySelector('.btn')!, 'click')
     .pipe(
       tap(async (ev) => {
-        console.log(ev);
-        const id = "8888888";
+        console.log(ev)
+        const id = '8888888'
         await trpc.user.createUser.mutate({
           id,
-          name: "bbbb",
-        });
+          name: 'bbbb',
+        })
 
         const pAll = await Promise.allSettled([
           trpc.user.getUserById.query(id),
@@ -44,23 +44,23 @@ const user = await appCaller(getAstroContext(Astro)).user.getUserById(id);
           trpc.user.getUserById.query(id),
           trpc.user.getUserById.query(id),
           trpc.user.getUserById.query(id),
-        ]);
+        ])
 
-        console.log(pAll);
+        console.log(pAll)
       })
     )
-    .subscribe();
+    .subscribe()
 
-  const getTodos = fromEvent(document.querySelector(".btn")!, "click")
+  const getTodos = fromEvent(document.querySelector('.btn')!, 'click')
     .pipe(
       switchMap(() => from(trpc.todos.getAll.query())),
       tap((data) => console.log(data))
     )
-    .subscribe();
+    .subscribe()
 
-  const uuElem = document.querySelector("[data-uu]") as HTMLElement;
+  const uuElem = document.querySelector('[data-uu]') as HTMLElement
   if (uuElem) {
-    console.log(uuElem.dataset.uu);
+    console.log(uuElem.dataset.uu)
   }
 </script>
 
