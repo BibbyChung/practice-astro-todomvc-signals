@@ -1,20 +1,21 @@
 <script lang="ts">
-  import { map } from "rxjs";
-  import { getWindow } from "~/lib/services/layout.service";
+  import { map } from 'rxjs';
+  import { getWindow } from '~/lib/services/layout.service';
+  const baseUrl = import.meta.env.BASE_URL;
 
   export const menus = [
     {
-      title: "Home",
-      path: "/"
+      title: 'Home',
+      path: baseUrl + '',
     },
     {
-      title: "Todos-React",
-      path: "/todos-react/"
+      title: 'Todos-React',
+      path: baseUrl + 'todos-react/',
     },
     {
-      title: "Todos-svelte",
-      path: "/todos-svelte/"
-    }
+      title: 'Todos-svelte',
+      path: baseUrl + 'todos-svelte/',
+    },
     // {
     //   title: "SSR",
     //   path: "/ssr/",
@@ -36,10 +37,12 @@
   {#each menus as item}
     <li class="mr-2">
       <a
-        class:text-red-5={($location$?.pathname ?? "") === item.path}
+        class:text-red-5={($location$?.pathname ?? '') === item.path}
         class="text-blue-5 underline"
-        href={item.path}>{item.title}</a
+        href={item.path}
       >
+        {item.title}
+      </a>
     </li>
   {/each}
 </ul>

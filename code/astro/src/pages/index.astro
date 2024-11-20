@@ -1,9 +1,12 @@
 ---
 import Main from "~/layouts/main.astro";
+import Env from "~/lib/components/env.svelte";
 import HelloWorldSvelte from "~/lib/components/hello-world.svelte";
 ---
 
 <Main title="home">
+  <Env />
+  <hr />
   <HelloWorldSvelte />
 </Main>
 
