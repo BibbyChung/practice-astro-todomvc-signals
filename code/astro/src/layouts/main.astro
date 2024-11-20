@@ -1,19 +1,19 @@
 ---
-import Layout from "~/layouts/layout.astro";
-import Menu from "~/lib/components/menu.svelte";
+import Layout from '~/layouts/layout.astro'
+import Menu from '~/lib/components/menu.svelte'
 
 interface Props {
-  title: string;
+  title: string
 }
-const props = Astro.props;
+const props = Astro.props
 ---
 
 <Layout {...props}>
-  <main class="p-8">
-    <div class="w-full">
+  <main class='p-8'>
+    <div class='w-full'>
       <Menu client:idle />
     </div>
-    <div class="mt-12 w-full flex flex-col items-center">
+    <div class='mt-12 w-full flex flex-col items-center'>
       <slot />
     </div>
   </main>
