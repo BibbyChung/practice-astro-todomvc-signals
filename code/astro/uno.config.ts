@@ -1,4 +1,4 @@
-import { defineConfig, presetUno, presetIcons, transformerDirectives } from 'unocss'
+import { defineConfig, presetIcons, presetUno, transformerDirectives } from 'unocss'
 export default defineConfig({
   transformers: [transformerDirectives()],
   presets: [
@@ -10,14 +10,4 @@ export default defineConfig({
       },
     }),
   ],
-  content: {
-    pipeline: {
-      include: [
-        // the default
-        /\.(vue|svelte|[jt]sx|mdx?|astro|html)($|\?)/,
-        // include js/ts files
-        'src/**/*.{js,ts}',
-      ],
-    },
-  },
 })
