@@ -18,7 +18,7 @@
     // },
     {
       title: 'scrape column',
-      path: baseUrl + 'scrape/',
+      path: baseUrl + '',
     },
     
     // {
