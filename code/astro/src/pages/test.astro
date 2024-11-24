@@ -23,7 +23,7 @@ const user = await appCaller(getAstroContext(Astro)).user.getUserById(id)
 <style></style>
 
 <script>
-  import { trpc } from '~/lib/common/t'
+  import { trpc } from '~/lib/common/trpc'
   import { fromEvent, switchMap, tap, from } from 'rxjs'
 
   const getUserSub = fromEvent(document.querySelector('.btn')!, 'click')
