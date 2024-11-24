@@ -43,8 +43,7 @@
       tap(() => {
         const elemDiv = document.querySelector('#dd')
         if (elemDiv) {
-          const style = `
-<style>
+          const style = `<style>
   .css-rss {
     --tw-size-1: 4px;
   }
@@ -86,8 +85,7 @@
 
 <form class="flex" on:submit|preventDefault={() => btnSubmit$.next(true)}>
   <span>
-    <label for="">category: </label>
-    <input bind:value={category} type="text" class="border p-2" placeholder="Empty is fine." />
+    <input bind:value={category} type="text" class="border p-2" placeholder="category: empty is all." />
   </span>
   <button class="btn ml-1">scrape</button>
 </form>
@@ -110,28 +108,30 @@
 
   <hr />
 
-  <div id="dd" class="css-rss">
-    <ul>
-      {#each $info$ as item}
-        <li>
-          <a href={item.href}>
-            <div>
-              <img
-                src={item.imgSrc}
-                srcset={item.imgSrcset}
-                sizes={item.imgSizes}
-                alt={item.title}
-              />
+  <div class="border p-1">
+    <div id="dd" class="css-rss">
+      <ul>
+        {#each $info$ as item}
+          <li>
+            <a href={item.href}>
               <div>
-                <h2>{item.title}</h2>
-                <span>{item.publishDate}</span>
-                <span>{item.category}</span>
+                <img
+                  src={item.imgSrc}
+                  srcset={item.imgSrcset}
+                  sizes={item.imgSizes}
+                  alt={item.title}
+                />
+                <div>
+                  <h2>{item.title}</h2>
+                  <span>{item.publishDate}</span>
+                  <span>{item.category}</span>
+                </div>
               </div>
-            </div>
-          </a>
-        </li>
-      {/each}
-    </ul>
+            </a>
+          </li>
+        {/each}
+      </ul>
+    </div>
   </div>
 {/if}
 
