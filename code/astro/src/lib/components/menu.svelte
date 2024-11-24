@@ -4,18 +4,23 @@
   const baseUrl = import.meta.env.BASE_URL
 
   export const menus = [
+    // {
+    //   title: 'Home',
+    //   path: baseUrl + '',
+    // },
+    // {
+    //   title: 'Todos-React(ssr)',
+    //   path: baseUrl + 'todos-react/',
+    // },
+    // {
+    //   title: 'Todos-svelte(ssr)',
+    //   path: baseUrl + 'todos-svelte/',
+    // },
     {
-      title: 'Home',
-      path: baseUrl + '',
+      title: 'scrape column',
+      path: baseUrl + 'scrape/',
     },
-    {
-      title: 'Todos-React(ssr)',
-      path: baseUrl + 'todos-react/',
-    },
-    {
-      title: 'Todos-svelte(ssr)',
-      path: baseUrl + 'todos-svelte/',
-    },
+    
     // {
     //   title: "SSR",
     //   path: "/ssr/",

@@ -1,3 +1,6 @@
+pnpx @astrojs/upgrade
+pnpx astro add svelte
+
 # Astro Starter Kit: Basics
 
 ```sh

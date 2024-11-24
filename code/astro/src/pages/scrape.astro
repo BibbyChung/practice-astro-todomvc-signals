@@ -1,0 +1,10 @@
+---
+import Main from '~/layouts/main.astro'
+import ColumnFetch from '~/lib/components/scrape/column-fetch.svelte'
+---
+
+<Main title='scrape'>
+  <ColumnFetch client:only />
+</Main>
+
+<style></style>
