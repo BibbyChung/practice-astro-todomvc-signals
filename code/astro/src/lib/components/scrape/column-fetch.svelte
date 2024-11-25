@@ -85,7 +85,12 @@
 
 <form class="flex" on:submit|preventDefault={() => btnSubmit$.next(true)}>
   <span>
-    <input bind:value={category} type="text" class="border p-2" placeholder="category: empty is all." />
+    <input
+      bind:value={category}
+      type="text"
+      class="border p-2"
+      placeholder="category: empty is all."
+    />
   </span>
   <button class="btn ml-1">scrape</button>
 </form>
@@ -108,8 +113,8 @@
 
   <hr />
 
-  <div class="border p-1">
-    <div id="dd" class="css-rss">
+  <div class="border p-1" id="dd">
+    <div class="css-rss">
       <ul>
         {#each $info$ as item}
           <li>
